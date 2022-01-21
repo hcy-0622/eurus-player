@@ -1,0 +1,7 @@
+.xg-player-control-duration {
+  display: inline-block;
+}
+
+.xg-player-control-duration > span {
+  @apply text-xs align-middle;
+}

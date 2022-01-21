@@ -1,0 +1,26 @@
+.xg-player-container {
+  @apply w-full h-full relative;
+}
+
+.xg-player {
+  @apply w-full h-full object-fill;
+}
+
+.xg-player-control {
+  @apply absolute bottom-0 w-full py-1.5 px-5 bg-gray-700 text-white;
+}
+
+.xg-player-control-top {
+  @apply flex justify-between;
+}
+.xg-player-control-top > .xg-player-control-top-left {
+  @apply flex items-center;
+}
+
+.xg-player-control-volume {
+  @apply align-middle mx-4 cursor-pointer;
+}
+
+.xg-player-control-fullscreen {
+  @apply align-middle cursor-pointer;
+}
