@@ -1,0 +1,7 @@
+.xg-player-control-volume-wrapper {
+  @apply inline-block cursor-pointer relative p-2;
+}
+
+/* .xg-player-control-volume {
+  @apply cursor-pointer; 
+} */

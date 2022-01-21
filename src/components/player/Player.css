@@ -17,10 +17,6 @@
   @apply flex items-center;
 }
 
-.xg-player-control-volume {
-  @apply align-middle mx-4 cursor-pointer;
-}
-
 .xg-player-control-fullscreen {
   @apply align-middle cursor-pointer;
 }

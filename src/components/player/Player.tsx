@@ -6,7 +6,7 @@ import { PlayerProps } from "./Player.types";
 import { usePlayerLoaded } from "@/hooks";
 
 import Icon from "../icon";
-import { Play, Duration } from "../controls";
+import { Play, Duration, Volume } from "../controls";
 
 const Player: React.FC<PlayerProps> = ({
   qualityList,
@@ -19,7 +19,7 @@ const Player: React.FC<PlayerProps> = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const { isLoaded } = usePlayerLoaded(videoRef);
   const [isPaused, setIsPaused] = useState(false);
-  const [isMuted, setIsMuted] = useState<boolean>();
+  const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentTime, setCurrentTime] = useState<number>();
   const [totalTime, setTotalTime] = useState<number>();
@@ -75,10 +75,10 @@ const Player: React.FC<PlayerProps> = ({
          onSelect={onQualitySelect}
        />
      )} */}
-              <Icon
-                className="xg-player-control-volume"
-                icon={isMuted ? "volume-mute" : "volume-off"}
-                onClick={() => {
+              <Volume
+                value={10}
+                isMuted={isMuted}
+                onMuteChange={() => {
                   if (isMuted) {
                     setIsMuted(false);
                     if (videoRef.current) {
