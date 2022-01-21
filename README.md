@@ -1,4 +1,4 @@
-# A React component library
+# A React based player component
 
 1. Build with Rollup
 2. Using React + TypeScript
