@@ -1,2 +1,2 @@
-import Player from "./player";
-export default Player;
+import Player from './player'
+export default Player

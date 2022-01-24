@@ -1,4 +1,4 @@
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faPlay,
   faPause,
@@ -8,7 +8,7 @@ import {
   faVolumeDown,
   faVolumeOff,
   faVolumeMute,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faPlay,
@@ -19,4 +19,4 @@ library.add(
   faVolumeDown,
   faVolumeOff,
   faVolumeMute
-);
+)

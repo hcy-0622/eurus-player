@@ -1,6 +1,6 @@
 export interface QualityItem {
-  name: string;
-  value: React.Key;
+  name: string
+  value: React.Key
 }
 
 export interface PlayerProps
@@ -8,8 +8,8 @@ export interface PlayerProps
     React.VideoHTMLAttributes<HTMLVideoElement>,
     HTMLVideoElement
   > {
-  qualityList?: QualityItem;
-  defaultQuality?: React.Key;
-  nativeControls?: boolean;
-  onQualitySelect?: (value: React.Key) => void;
+  qualityList?: QualityItem
+  defaultQuality?: React.Key
+  nativeControls?: boolean
+  onQualitySelect?: (value: React.Key) => void
 }

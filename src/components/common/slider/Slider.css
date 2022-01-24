@@ -1,0 +1,30 @@
+.xg-slider {
+  @apply bg-gray-500 rounded;
+}
+
+.xg-slider-track.xg-slider-vertical {
+  @apply h-[200px] w-1;
+}
+.xg-slider-track.xg-slider-horizon {
+  @apply w-[200px] h-1;
+}
+
+.xg-slider-track > .xg-slider-track-in {
+  @apply relative rounded bg-primary;
+}
+.xg-slider-track.xg-slider-vertical > .xg-slider-track-in {
+  @apply h-0 w-full;
+}
+.xg-slider-track.xg-slider-horizon > .xg-slider-track-in {
+  @apply h-full w-0;
+}
+
+.xg-slider-track .xg-slider-dot {
+  @apply w-2 h-2 rounded-[50%] bg-primary absolute;
+}
+.xg-slider-track.xg-slider-vertical .xg-slider-dot {
+  @apply left-1/2 top-[98%] -translate-x-1/2;
+}
+.xg-slider-track.xg-slider-horizon .xg-slider-dot {
+  @apply top-1/2 left-[98%] -translate-y-1/2;
+}

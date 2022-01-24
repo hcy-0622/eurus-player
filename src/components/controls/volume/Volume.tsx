@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import classNames from "classnames";
+import React, { useEffect, useState } from 'react'
+import classNames from 'classnames'
 
-import Icon from "../../icon";
+import { Icon } from '../../common'
 
-import { VolumeProps } from "./Volume.types";
-import "./Volume.css";
+import { VolumeProps } from './Volume.types'
+import './Volume.css'
 
 const Volume: React.FC<VolumeProps> = ({
   value,
@@ -14,24 +14,24 @@ const Volume: React.FC<VolumeProps> = ({
   onMuteChange,
   onVolumeChange,
 }) => {
-  const [sliderValue, setSliderValue] = useState(value);
+  const [sliderValue, setSliderValue] = useState(value)
 
   useEffect(() => {
-    setSliderValue(value);
-  }, [value]);
+    setSliderValue(value)
+  }, [value])
 
   return (
     <span className="xg-player-control-volume-wrapper">
       <Icon
-        className={classNames("xg-player-control-volume", className)}
+        className={classNames('xg-player-control-volume', className)}
         style={style}
-        icon={isMuted ? "volume-mute" : "volume-off"}
+        icon={isMuted ? 'volume-mute' : 'volume-off'}
         onClick={() => {
-          onMuteChange(!isMuted);
+          onMuteChange(!isMuted)
         }}
       />
     </span>
-  );
-};
+  )
+}
 
-export default Volume;
+export default Volume

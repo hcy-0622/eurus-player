@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react'
 
-import "./Player.css";
-import { PlayerProps } from "./Player.types";
+import './Player.css'
+import { PlayerProps } from './Player.types'
 
-import { usePlayerLoaded } from "@/hooks";
+import { usePlayerLoaded } from '@/hooks'
 
-import Icon from "../icon";
-import { Play, Duration, Volume } from "../controls";
+import { Icon } from '../common'
+import { Play, Duration, Volume } from '../controls'
 
 const Player: React.FC<PlayerProps> = ({
   qualityList,
@@ -16,22 +16,22 @@ const Player: React.FC<PlayerProps> = ({
   children,
   ...props
 }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const { isLoaded } = usePlayerLoaded(videoRef);
-  const [isPaused, setIsPaused] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [currentTime, setCurrentTime] = useState<number>();
-  const [totalTime, setTotalTime] = useState<number>();
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const { isLoaded } = usePlayerLoaded(videoRef)
+  const [isPaused, setIsPaused] = useState(false)
+  const [isMuted, setIsMuted] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  const [currentTime, setCurrentTime] = useState<number>()
+  const [totalTime, setTotalTime] = useState<number>()
 
   useEffect(() => {
     if (videoRef.current) {
-      const video = videoRef.current;
-      setIsPaused(video.paused);
-      setIsMuted(video.muted);
-      setTotalTime(video.duration);
+      const video = videoRef.current
+      setIsPaused(video.paused)
+      setIsMuted(video.muted)
+      setTotalTime(video.duration)
     }
-  }, [isLoaded]);
+  }, [isLoaded])
 
   return (
     <div className="xg-player-container">
@@ -42,8 +42,8 @@ const Player: React.FC<PlayerProps> = ({
         controls={nativeControls}
         onTimeUpdate={() => {
           if (videoRef.current) {
-            const time = Math.floor(videoRef.current.currentTime);
-            setCurrentTime(time);
+            const time = Math.floor(videoRef.current.currentTime)
+            setCurrentTime(time)
           }
         }}
       >
@@ -56,7 +56,7 @@ const Player: React.FC<PlayerProps> = ({
               <Play
                 isPlaying={isPaused}
                 onPlayChange={(val) => {
-                  setIsPaused(val);
+                  setIsPaused(val)
                 }}
               />
               {totalTime !== undefined && currentTime !== undefined && (
@@ -80,28 +80,28 @@ const Player: React.FC<PlayerProps> = ({
                 isMuted={isMuted}
                 onMuteChange={() => {
                   if (isMuted) {
-                    setIsMuted(false);
+                    setIsMuted(false)
                     if (videoRef.current) {
-                      videoRef.current.muted = false;
+                      videoRef.current.muted = false
                     }
                   } else {
-                    setIsMuted(true);
+                    setIsMuted(true)
                     if (videoRef.current) {
-                      videoRef.current.muted = true;
+                      videoRef.current.muted = true
                     }
                   }
                 }}
               />
               <Icon
                 className="xg-player-control-fullscreen"
-                icon={isFullscreen ? "compass" : "expand"}
+                icon={isFullscreen ? 'compass' : 'expand'}
                 onClick={() => {
                   if (isFullscreen) {
-                    setIsFullscreen(false);
-                    document.exitFullscreen();
+                    setIsFullscreen(false)
+                    document.exitFullscreen()
                   } else {
-                    setIsFullscreen(true);
-                    videoRef.current && videoRef.current.requestFullscreen();
+                    setIsFullscreen(true)
+                    videoRef.current && videoRef.current.requestFullscreen()
                   }
                 }}
               />
@@ -111,7 +111,7 @@ const Player: React.FC<PlayerProps> = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Player;
+export default Player

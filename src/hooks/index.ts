@@ -1,1 +1,1 @@
-export { default as usePlayerLoaded } from "./usePlayerLoaded";
+export { default as usePlayerLoaded } from './usePlayerLoaded'
