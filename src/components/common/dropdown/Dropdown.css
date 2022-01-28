@@ -1,0 +1,42 @@
+.eurus-dropdown {
+  display: inline-block;
+  font-size: var(--text-sm);
+
+  & > .eurus-dropdown-content {
+    cursor: pointer;
+    transition: color 0.3s ease-in;
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.eurus-dropdown-overlay {
+  position: absolute;
+  display: inline-block;
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.75, -0.015, 0.565, 1.055);
+  z-index: 9;
+
+  &.default-style {
+    border: 1px solid var(--gray);
+    background-color: var(--white);
+    border-radius: var(--rounded);
+    padding: 8px;
+  }
+
+  &.overlay-active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.overlay-top {
+    transform: translateY(-8px);
+  }
+  
+  &.overlay-bottom {
+    transform: translateY(8px);
+  }
+}

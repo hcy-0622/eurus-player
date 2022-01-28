@@ -1,9 +1,3 @@
-.xg-player-control-play {
-  @apply cursor-pointer;
+.eurus-player-control-play {
+  cursor: pointer;
 }
-
-/* .xg-player-control-play-playing {
-}
-
-.xg-player-control-play-paused {
-} */

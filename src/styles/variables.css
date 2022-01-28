@@ -1,0 +1,15 @@
+:root {
+  --primary-color: #b52bdf;
+  --secondary-color: #696363;
+  --black: #000;
+  --white: #fff;
+  --gray: rgb(223, 221, 215);
+
+  --rounded: 0.25rem;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+}

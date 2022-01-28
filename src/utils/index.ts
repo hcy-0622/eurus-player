@@ -14,3 +14,10 @@ export function timeFormat(times = 0) {
     (Math.floor(seconds) + '').padStart(2, '0')
   )
 }
+
+const PREFIX = 'eurus'
+export function generateClassName(blockName: string) {
+  return function (elementName?: string) {
+    return [PREFIX, blockName, elementName].filter(Boolean).join('-')
+  }
+}

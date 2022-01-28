@@ -14,6 +14,7 @@ const Template: Story<VolumeProps> = (args) => <Volume {...args} />
 export const Default = Template.bind({})
 Default.args = {
   value: 50,
+  style: { marginTop: '200px' },
 }
 
 export const Muted = Template.bind({})

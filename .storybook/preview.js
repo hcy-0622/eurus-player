@@ -1,4 +1,4 @@
-import "../src/index.css";
+import "../src/styles/index.css";
 import "../src/lib/icons";
 
 export const parameters = {

@@ -1,7 +1,20 @@
-.xg-player-control-volume-wrapper {
-  @apply inline-block cursor-pointer relative p-2;
+.eurus-player-control-volume {
+  display: inline-block;
 }
 
-/* .xg-player-control-volume {
-  @apply cursor-pointer; 
-} */
+.eurus-player-control-volume-overlay {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding-left: 8px;
+  padding-right: 8px;
+
+  & .eurus-player-control-volume-overlay-value {
+    font-size: var(--text-xs);
+    color: var(--white);
+    display: inline-block;
+    width: 24px;
+  }
+  & .eurus-player-control-volume-overlay-slider {
+    margin: 0 auto;
+  }
+}

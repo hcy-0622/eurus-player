@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 
-import { Icon } from '../../common'
+import { generateClassName } from '@/utils'
+import { Dropdown, Icon, Slider } from '../../common'
 
-import { VolumeProps } from './Volume.types'
 import './Volume.css'
+import { VolumeProps } from './Volume.types'
 
+const genClass = generateClassName('player-control-volume')
 const Volume: React.FC<VolumeProps> = ({
   value,
   isMuted,
@@ -14,23 +16,31 @@ const Volume: React.FC<VolumeProps> = ({
   onMuteChange,
   onVolumeChange,
 }) => {
-  const [sliderValue, setSliderValue] = useState(value)
-
-  useEffect(() => {
-    setSliderValue(value)
-  }, [value])
-
   return (
-    <span className="xg-player-control-volume-wrapper">
+    <Dropdown
+      className={className}
+      style={style}
+      defaultStyle={false}
+      overlay={
+        <div className={genClass('overlay')}>
+          <span className={genClass('overlay-value')}>{Math.floor(value)}</span>
+          <Slider
+            className={genClass('overlay-slider')}
+            direction="vertical"
+            value={value}
+            onChange={onVolumeChange}
+          />
+        </div>
+      }
+    >
       <Icon
-        className={classNames('xg-player-control-volume', className)}
-        style={style}
+        className={classNames(genClass())}
         icon={isMuted ? 'volume-mute' : 'volume-off'}
         onClick={() => {
           onMuteChange(!isMuted)
         }}
       />
-    </span>
+    </Dropdown>
   )
 }
 

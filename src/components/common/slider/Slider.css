@@ -1,30 +1,68 @@
-.xg-slider {
-  @apply bg-gray-500 rounded;
-}
+.eurus-slider {
+  /* Vetical start */
+  &.slider-vertical {
+    padding-top: 12px;
+    padding-bottom: 12px;
 
-.xg-slider-track.xg-slider-vertical {
-  @apply h-[200px] w-1;
-}
-.xg-slider-track.xg-slider-horizon {
-  @apply w-[200px] h-1;
-}
+    & .eurus-slider-track {
+      height: 80px;
+      width: 4px;
+      background-color: var(--primary-color);
+    }
 
-.xg-slider-track > .xg-slider-track-in {
-  @apply relative rounded bg-primary;
-}
-.xg-slider-track.xg-slider-vertical > .xg-slider-track-in {
-  @apply h-0 w-full;
-}
-.xg-slider-track.xg-slider-horizon > .xg-slider-track-in {
-  @apply h-full w-0;
-}
+    & .eurus-slider-track-fill {
+      height: 0;
+      width: 100%;
+      background-color: var(--secondary-color);
+    }
 
-.xg-slider-track .xg-slider-dot {
-  @apply w-2 h-2 rounded-[50%] bg-primary absolute;
-}
-.xg-slider-track.xg-slider-vertical .xg-slider-dot {
-  @apply left-1/2 top-[98%] -translate-x-1/2;
-}
-.xg-slider-track.xg-slider-horizon .xg-slider-dot {
-  @apply top-1/2 left-[98%] -translate-y-1/2;
+    & .eurus-slider-dot {
+      left: 50%;
+      top: calc(100% - 4px);
+      transform: translateX(-50%);
+    }
+  }
+  /* Vertical end */
+
+  /* Horizon start */
+  &.slider-horizon {
+    padding-left: 12px;
+    padding-right: 12px;
+
+    & .eurus-slider-track {
+      width: 80px;
+      height: 4px;
+    }
+
+    & .eurus-slider-track-fill {
+      height: 100%;
+      width: 0;
+    }
+
+    & .eurus-slider-dot {
+      top: 50%;
+      left: calc(100% - 4px);
+      transform: translateY(-50%);
+    }
+  }
+  /* Horizon end */
+
+  & > .eurus-slider-track {
+    background-color: var(--secondary-color);
+    border-radius: var(--rounded);
+  }
+
+  & .eurus-slider-track-fill {
+    position: relative;
+    border-radius: var(--rounded);
+    background-color: var(--primary-color);
+  }
+
+  & .eurus-slider-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    position: absolute;
+  }
 }

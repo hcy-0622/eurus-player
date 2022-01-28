@@ -1,9 +1,13 @@
 import React from 'react'
 import classNames from 'classnames'
 
+import { generateClassName } from '@/utils'
 import { Icon } from '../../common'
+
+import './Play.css'
 import { PlayProps } from './Play.types'
 
+const genClass = generateClassName('player-control-play')
 const Play: React.FC<PlayProps> = ({
   isPlaying,
   color,
@@ -13,9 +17,9 @@ const Play: React.FC<PlayProps> = ({
 }) => {
   return (
     <Icon
-      className={classNames('xg-player-control-play', className, {
-        'xg-player-control-play-playing': isPlaying,
-        'xg-player-control-play-paused': !isPlaying,
+      className={classNames(genClass(), className, {
+        [genClass('playing')]: isPlaying,
+        [genClass('paused')]: !isPlaying,
       })}
       style={style}
       icon={isPlaying ? 'pause' : 'play'}

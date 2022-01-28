@@ -23,6 +23,6 @@ Controlled.args = {
 
 export const Vertical = Template.bind({})
 Vertical.args = {
-  defaultValue: 40,
+  defaultValue: 70,
   direction: 'vertical',
 }

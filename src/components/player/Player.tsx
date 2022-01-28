@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 
+import { usePlayerLoaded } from '@/hooks'
+import { generateClassName } from '@/utils'
+import { Play, Duration, Volume, Fullscreen } from '../controls'
+
 import './Player.css'
 import { PlayerProps } from './Player.types'
 
-import { usePlayerLoaded } from '@/hooks'
-
-import { Icon } from '../common'
-import { Play, Duration, Volume } from '../controls'
-
+const genClass = generateClassName('player')
 const Player: React.FC<PlayerProps> = ({
   qualityList,
   defaultQuality,
@@ -16,17 +16,18 @@ const Player: React.FC<PlayerProps> = ({
   children,
   ...props
 }) => {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const { isLoaded } = usePlayerLoaded(videoRef)
+  const videoEl = useRef<HTMLVideoElement>(null)
+  const { isLoaded } = usePlayerLoaded(videoEl)
   const [isPaused, setIsPaused] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [currentTime, setCurrentTime] = useState<number>()
   const [totalTime, setTotalTime] = useState<number>()
+  const [volume, setVolume] = useState(100)
 
   useEffect(() => {
-    if (videoRef.current) {
-      const video = videoRef.current
+    if (videoEl.current) {
+      const video = videoEl.current
       setIsPaused(video.paused)
       setIsMuted(video.muted)
       setTotalTime(video.duration)
@@ -34,40 +35,45 @@ const Player: React.FC<PlayerProps> = ({
   }, [isLoaded])
 
   return (
-    <div className="xg-player-container">
+    <div className={genClass('container')}>
       <video
         {...props}
-        className="xg-player"
-        ref={videoRef}
+        className={genClass()}
+        ref={videoEl}
         controls={nativeControls}
         onTimeUpdate={() => {
-          if (videoRef.current) {
-            const time = Math.floor(videoRef.current.currentTime)
+          if (videoEl.current) {
+            const time = Math.floor(videoEl.current.currentTime)
             setCurrentTime(time)
           }
         }}
       >
         {children}
       </video>
-      {!nativeControls && (
-        <div className="xg-player-control">
-          <div className="xg-player-control-top">
-            <div className="xg-player-control-top-left">
+      {!nativeControls && isLoaded && (
+        <div className={genClass('control')}>
+          <div className={genClass('control-top')}>
+            <div className={genClass('control-top-left')}>
               <Play
-                isPlaying={isPaused}
+                isPlaying={!isPaused}
                 onPlayChange={(val) => {
-                  setIsPaused(val)
+                  setIsPaused(!val)
+                  if (val) {
+                    videoEl.current?.play()
+                  } else {
+                    videoEl.current?.pause()
+                  }
                 }}
               />
               {totalTime !== undefined && currentTime !== undefined && (
                 <Duration
-                  className="ml-2"
+                  style={{ marginLeft: '8px' }}
                   current={currentTime}
                   total={totalTime}
                 />
               )}
             </div>
-            <div className="xg-player-control-top-right">
+            <div className={genClass('control-top-right')}>
               {/* {qualityList && (
        <Picker
          list={qualityList}
@@ -76,32 +82,36 @@ const Player: React.FC<PlayerProps> = ({
        />
      )} */}
               <Volume
-                value={10}
+                style={{ marginRight: '16px', verticalAlign: 'middle' }}
+                value={volume}
                 isMuted={isMuted}
-                onMuteChange={() => {
-                  if (isMuted) {
-                    setIsMuted(false)
-                    if (videoRef.current) {
-                      videoRef.current.muted = false
-                    }
+                onMuteChange={(val) => {
+                  if (!videoEl.current) return
+                  setIsMuted(val)
+                  if (val) {
+                    videoEl.current.muted = true
                   } else {
-                    setIsMuted(true)
-                    if (videoRef.current) {
-                      videoRef.current.muted = true
-                    }
+                    videoEl.current.muted = false
+                  }
+                }}
+                onVolumeChange={(val) => {
+                  setVolume(val)
+                  if (videoEl.current) {
+                    videoEl.current.volume = val / 100
                   }
                 }}
               />
-              <Icon
-                className="xg-player-control-fullscreen"
-                icon={isFullscreen ? 'compass' : 'expand'}
-                onClick={() => {
-                  if (isFullscreen) {
-                    setIsFullscreen(false)
-                    document.exitFullscreen()
+              <Fullscreen
+                style={{ verticalAlign: 'middle' }}
+                isFullscreen={isFullscreen}
+                onFullscreenChange={(val) => {
+                  setIsFullscreen(val)
+                  if (val) {
+                    const parentEl = videoEl.current
+                      ?.parentNode as HTMLDivElement
+                    parentEl.requestFullscreen()
                   } else {
-                    setIsFullscreen(true)
-                    videoRef.current && videoRef.current.requestFullscreen()
+                    document.exitFullscreen()
                   }
                 }}
               />

@@ -1,22 +1,31 @@
-.xg-player-container {
-  @apply w-full h-full relative;
-}
+.eurus-player-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
 
-.xg-player {
-  @apply w-full h-full object-fill;
-}
+  & > .eurus-player {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
 
-.xg-player-control {
-  @apply absolute bottom-0 w-full py-1.5 px-5 bg-gray-700 text-white;
-}
+  & > .eurus-player-control {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 4px 20px;
+    box-sizing: border-box;
+    color: var(--white);
+    background-color: rgba(0, 0, 0, 0.85);
 
-.xg-player-control-top {
-  @apply flex justify-between;
-}
-.xg-player-control-top > .xg-player-control-top-left {
-  @apply flex items-center;
-}
+    & >.eurus-player-control-top {
+      display: flex;
+      justify-content: space-between;
 
-.xg-player-control-fullscreen {
-  @apply align-middle cursor-pointer;
+      & > .eurus-player-control-top-left {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
 }

@@ -4,9 +4,10 @@
  */
 
 module.exports = {
-  testEnvironment: "jsdom",
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
-    ".(css|less|scss)$": "identity-obj-proxy",
-    "@/hooks": "<rootDir>/src/hooks",
+    '.(css|less|scss|styl)$': 'identity-obj-proxy',
+    '@/hooks': '<rootDir>/src/hooks',
+    '@/utils': '<rootDir>/src/utils',
   },
-};
+}
