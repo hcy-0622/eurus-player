@@ -39,11 +39,12 @@ const Dropdown: React.FC<DropdownProps> = ({
           }
         }
         // 处理offset top
+        const offsetTop = rect.top + window.scrollY
         if (rect.top < overlayEl.current.offsetHeight) {
-          pos.top = rect.top + rect.height
+          pos.top = offsetTop + rect.height
           setPosDirection('bottom')
         } else {
-          pos.top = rect.top - overlayEl.current.offsetHeight
+          pos.top = offsetTop - overlayEl.current.offsetHeight
           setPosDirection('top')
         }
       }
