@@ -4,5 +4,5 @@ export interface DropdownProps extends CSSProps {
   overlay: JSX.Element
   overlayClassName?: string
   overlayStyle?: React.CSSProperties
-  defaultStyle?: boolean
+  // getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement
 }

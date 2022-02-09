@@ -82,7 +82,7 @@ const Player: React.FC<PlayerProps> = ({
        />
      )} */}
               <Volume
-                style={{ marginRight: '16px', verticalAlign: 'middle' }}
+                style={{ marginRight: '12px', verticalAlign: 'middle' }}
                 value={volume}
                 isMuted={isMuted}
                 onMuteChange={(val) => {
@@ -96,6 +96,11 @@ const Player: React.FC<PlayerProps> = ({
                 }}
                 onVolumeChange={(val) => {
                   setVolume(val)
+                  if (val <= 0) {
+                    setIsMuted(true)
+                  } else {
+                    setIsMuted(false)
+                  }
                   if (videoEl.current) {
                     videoEl.current.volume = val / 100
                   }

@@ -1,8 +1,8 @@
 .eurus-slider {
   /* Vetical start */
   &.slider-vertical {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    /* padding-top: 8px; */
+    /* padding-bottom: 8px; */
 
     & .eurus-slider-track {
       height: 80px;
@@ -26,8 +26,8 @@
 
   /* Horizon start */
   &.slider-horizon {
-    padding-left: 12px;
-    padding-right: 12px;
+    /* padding-left: 8px; */
+    /* padding-right: 8px; */
 
     & .eurus-slider-track {
       width: 80px;

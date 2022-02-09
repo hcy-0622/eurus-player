@@ -20,7 +20,6 @@ const Volume: React.FC<VolumeProps> = ({
     <Dropdown
       className={className}
       style={style}
-      defaultStyle={false}
       overlay={
         <div className={genClass('overlay')}>
           <span className={genClass('overlay-value')}>{Math.floor(value)}</span>
@@ -33,13 +32,15 @@ const Volume: React.FC<VolumeProps> = ({
         </div>
       }
     >
-      <Icon
-        className={classNames(genClass())}
-        icon={isMuted ? 'volume-mute' : 'volume-off'}
-        onClick={() => {
-          onMuteChange(!isMuted)
-        }}
-      />
+      <div className={classNames(genClass('wrapper'))}>
+        <Icon
+          className={classNames(genClass())}
+          icon={isMuted ? 'volume-mute' : 'volume-off'}
+          onClick={() => {
+            onMuteChange(!isMuted)
+          }}
+        />
+      </div>
     </Dropdown>
   )
 }

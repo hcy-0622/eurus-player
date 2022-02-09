@@ -1,66 +1,62 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
+import React, { useState } from 'react'
 import classNames from 'classnames'
 
-import './Dropdown.css'
-import { DropdownProps } from './Dropdown.types'
 import { generateClassName } from '@/utils'
+// import Portal from '../portal'
+
+import { DropdownProps } from './Dropdown.types'
+import './Dropdown.css'
 
 const genClass = generateClassName('dropdown')
+// const getDefaultPopupContainer = () => document.body
 const Dropdown: React.FC<DropdownProps> = ({
   overlay,
   className,
   style,
   overlayStyle,
   overlayClassName,
-  defaultStyle = true,
+  // getPopupContainer = getDefaultPopupContainer,
   children,
 }) => {
-  const el = useRef<HTMLDivElement>(null)
-  const overlayEl = useRef<HTMLDivElement>(null)
   const [isShowOverlay, setIsShowOverlay] = useState(false)
-  const [offsetPos, setOffsetPos] = useState({ top: 0, left: 0 })
-  const [posDirection, setPosDirection] = useState<'top' | 'bottom'>()
+  // const triggerElRef = useRef<HTMLDivElement>(null)
+  // const overlayElRef = useRef<HTMLDivElement>(null)
+  // const [offsetPos, setOffsetPos] = useState<{ top: number; left: number }>()
+  // const [posDirection, setPosDirection] = useState<'top' | 'bottom'>()
+  // const triggerElIsLoaded = triggerElRef.current !== null
+  // const overlayElIsLoaded = overlayElRef.current !== null
 
-  useEffect(() => {
-    const posHandler = () => {
-      const pos = { top: 0, left: 0 }
-      if (el.current && overlayEl.current) {
-        const rect = el.current.getBoundingClientRect()
-        const overlayWidth = overlayEl.current.clientWidth
-        // 处理offset left
-        if (overlayWidth < rect.left) {
-          const diffWidth = overlayWidth - rect.width
-          pos.left = rect.left
-          if (diffWidth > 0) {
-            pos.left = pos.left - Math.abs(diffWidth) / 2
-          } else if (diffWidth < 0) {
-            pos.left = pos.left + Math.abs(diffWidth) / 2
-          }
-        }
-        // 处理offset top
-        const offsetTop = rect.top + window.scrollY
-        if (rect.top < overlayEl.current.offsetHeight) {
-          pos.top = offsetTop + rect.height
-          setPosDirection('bottom')
-        } else {
-          pos.top = offsetTop - overlayEl.current.offsetHeight
-          setPosDirection('top')
-        }
-      }
-      setOffsetPos(pos)
-    }
-    posHandler()
-
-    // const mousemoveHandler = (ev: MouseEvent) => {
-    //   console.log(ev)
-    // }
-    // document.addEventListener('mousemove', mousemoveHandler)
-
-    // return () => {
-    //   document.removeEventListener('mousemove', mousemoveHandler)
-    // }
-  }, [])
+  // useLayoutEffect(() => {
+  //   const posHandler = () => {
+  //     if (!triggerElIsLoaded || !overlayElIsLoaded) return
+  //     const pos = { top: 0, left: 0 }
+  //     const el = triggerElRef.current
+  //     const overlayEl = overlayElRef.current
+  //     const rect = el.getBoundingClientRect()
+  //     const overlayWidth = overlayEl.clientWidth
+  //     // 处理offset left
+  //     if (overlayWidth < rect.left) {
+  //       const diffWidth = overlayWidth - rect.width
+  //       pos.left = rect.left
+  //       if (diffWidth > 0) {
+  //         pos.left = pos.left - Math.abs(diffWidth) / 2
+  //       } else if (diffWidth < 0) {
+  //         pos.left = pos.left + Math.abs(diffWidth) / 2
+  //       }
+  //     }
+  //     // 处理offset top
+  //     const offsetTop = rect.top + window.scrollY
+  //     if (rect.top < overlayEl.offsetHeight) {
+  //       pos.top = offsetTop + rect.height
+  //       setPosDirection('bottom')
+  //     } else {
+  //       pos.top = offsetTop - overlayEl.offsetHeight
+  //       setPosDirection('top')
+  //     }
+  //     setOffsetPos(pos)
+  //   }
+  //   posHandler()
+  // }, [overlayElIsLoaded, triggerElIsLoaded])
 
   return (
     <div
@@ -72,28 +68,49 @@ const Dropdown: React.FC<DropdownProps> = ({
     >
       <div
         className={genClass('content')}
-        ref={el}
+        // ref={triggerElRef}
         onMouseEnter={() => {
           setIsShowOverlay(true)
         }}
       >
         {children}
       </div>
-      {createPortal(
-        <div
-          ref={overlayEl}
-          className={classNames(genClass('overlay'), overlayClassName, {
-            'overlay-active': isShowOverlay,
-            'overlay-top': posDirection === 'top' && !isShowOverlay,
-            'overlay-bottom': posDirection === 'bottom' && !isShowOverlay,
-            'default-style': defaultStyle,
-          })}
-          style={{ ...overlayStyle, top: offsetPos.top, left: offsetPos.left }}
-        >
-          {overlay}
-        </div>,
-        document.body
-      )}
+      <div
+        // ref={overlayElRef}
+        className={classNames(genClass('overlay-container'), overlayClassName, {
+          'overlay-active': isShowOverlay,
+          // 'overlay-top': posDirection === 'top' && !isShowOverlay,
+          // 'overlay-bottom': posDirection === 'bottom' && !isShowOverlay,
+        })}
+        style={overlayStyle}
+        // style={{
+        //   ...overlayStyle,
+        //   top: offsetPos ? offsetPos.top : 0,
+        //   left: offsetPos ? offsetPos.left : 0,
+        // }}
+      >
+        {overlay}
+      </div>
+      {/* {triggerElRef.current && (
+        <Portal wrapperElement={getPopupContainer(triggerElRef.current)}>
+          <div
+            ref={overlayElRef}
+            className={classNames(genClass('overlay'), overlayClassName, {
+              'overlay-active': isShowOverlay,
+              'overlay-top': posDirection === 'top' && !isShowOverlay,
+              'overlay-bottom': posDirection === 'bottom' && !isShowOverlay,
+              'default-style': defaultStyle,
+            })}
+            style={{
+              ...overlayStyle,
+              top: offsetPos ? offsetPos.top : 0,
+              left: offsetPos ? offsetPos.left : 0,
+            }}
+          >
+            {overlay}
+          </div>
+        </Portal>
+      )} */}
     </div>
   )
 }
