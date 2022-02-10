@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 import { usePlayerLoaded } from '@/hooks'
 import { generateClassName } from '@/utils'
@@ -6,6 +6,7 @@ import { Play, Duration, Volume, Fullscreen } from '../controls'
 
 import './Player.css'
 import { PlayerProps } from './Player.types'
+import { Slider } from '../common'
 
 const genClass = generateClassName('player')
 const Player: React.FC<PlayerProps> = ({
@@ -24,6 +25,11 @@ const Player: React.FC<PlayerProps> = ({
   const [currentTime, setCurrentTime] = useState<number>()
   const [totalTime, setTotalTime] = useState<number>()
   const [volume, setVolume] = useState(100)
+
+  const currentPercent = useMemo(() => {
+    if (!currentTime || !totalTime) return 0
+    return (currentTime / totalTime) * 100
+  }, [currentTime, totalTime])
 
   useEffect(() => {
     if (videoEl.current) {
@@ -47,22 +53,24 @@ const Player: React.FC<PlayerProps> = ({
             setCurrentTime(time)
           }
         }}
+        onClick={() => {
+          if (!videoEl.current) return
+          isPaused ? videoEl.current.play() : videoEl.current.pause()
+          setIsPaused((preVal) => !preVal)
+        }}
       >
         {children}
       </video>
       {!nativeControls && isLoaded && (
         <div className={genClass('control')}>
-          <div className={genClass('control-top')}>
-            <div className={genClass('control-top-left')}>
+          <div className={genClass('control-items')}>
+            <div className={genClass('control-items-left')}>
               <Play
                 isPlaying={!isPaused}
                 onPlayChange={(val) => {
+                  if (!videoEl.current) return
                   setIsPaused(!val)
-                  if (val) {
-                    videoEl.current?.play()
-                  } else {
-                    videoEl.current?.pause()
-                  }
+                  val ? videoEl.current.play() : videoEl.current.pause()
                 }}
               />
               {totalTime !== undefined && currentTime !== undefined && (
@@ -73,14 +81,7 @@ const Player: React.FC<PlayerProps> = ({
                 />
               )}
             </div>
-            <div className={genClass('control-top-right')}>
-              {/* {qualityList && (
-       <Picker
-         list={qualityList}
-         defaultValue={defaultQuality}
-         onSelect={onQualitySelect}
-       />
-     )} */}
+            <div className={genClass('control-items-right')}>
               <Volume
                 style={{ marginRight: '12px', verticalAlign: 'middle' }}
                 value={volume}
@@ -122,7 +123,24 @@ const Player: React.FC<PlayerProps> = ({
               />
             </div>
           </div>
-          <div>{/* <Progress /> */}</div>
+          {totalTime && (
+            <div className={genClass('control-progress')}>
+              <Slider
+                style={{ width: '100%' }}
+                value={currentPercent}
+                onChange={(val) => {
+                  if (!videoEl.current) return
+                  videoEl.current.pause()
+                  setIsPaused(true)
+                  const current = totalTime * (val / 100)
+                  videoEl.current.currentTime = current
+                  setCurrentTime(current)
+                  videoEl.current.play()
+                  setIsPaused(false)
+                }}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

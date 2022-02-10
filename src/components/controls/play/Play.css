@@ -1,3 +1,9 @@
 .eurus-player-control-play {
   cursor: pointer;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    color: var(--primary-color);
+    transform: scale(1.25);
+  }
 }

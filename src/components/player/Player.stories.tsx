@@ -10,13 +10,7 @@ export default {
 } as Meta<typeof Player>
 
 const Template: Story<PlayerProps> = (args) => (
-  <Player
-    {...args}
-    src="http://127.0.0.1:8099/yjwjml.mp4"
-    muted
-    autoPlay
-    loop
-  />
+  <Player {...args} src="http://127.0.0.1:8099/rise.mp4" muted autoPlay loop />
 )
 
 export const Default = Template.bind({})

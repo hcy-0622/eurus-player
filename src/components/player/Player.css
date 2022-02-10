@@ -18,14 +18,24 @@
     color: var(--white);
     background-color: rgba(0, 0, 0, 0.85);
 
-    & >.eurus-player-control-top {
+    & > .eurus-player-control-items {
       display: flex;
       justify-content: space-between;
 
-      & > .eurus-player-control-top-left {
+      & > .eurus-player-control-items-left {
         display: flex;
         align-items: center;
       }
+    }
+
+    & > .eurus-player-control-progress {
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 0 4px;
+      box-sizing: border-box;
     }
   }
 }
